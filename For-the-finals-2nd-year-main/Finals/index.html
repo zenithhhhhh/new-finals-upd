@@ -1,0 +1,2410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Arcane Pages | Premium Fantasy Emporium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #03050a;
+      --bg-surface: rgba(13, 17, 28, 0.6);
+      --card-bg: rgba(20, 25, 40, 0.4);
+      --gold-light: #fef0cd;
+      --gold-primary: #e8c97e;
+      --gold-dark: #b89344;
+      --gold-gradient: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+      --text-main: #f0f2f5;
+      --text-muted: #a0a8c0;
+      --border-subtle: rgba(232, 201, 126, 0.15);
+      --border-glow: rgba(232, 201, 126, 0.4);
+      --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 20px rgba(232, 201, 126, 0.2);
+      --transition-snappy: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(232, 201, 126, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Animated Orbs */
+    .ambient-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.4;
+      animation: float 20s infinite alternate ease-in-out;
+    }
+    .orb-1 { width: 400px; height: 400px; background: #2a1b4d; top: -100px; left: -100px; }
+    .orb-2 { width: 300px; height: 300px; background: #3d2c18; bottom: 10%; right: -50px; animation-delay: -5s; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(50px, 50px) scale(1.1); }
+    }
+
+    h1, h2, h3, .logo {
+      font-family: 'Cinzel', serif;
+    }
+
+    /* custom scroll */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+
+    /* Header */
+    .glass-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(3, 5, 10, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: var(--transition-snappy);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: var(--gold-primary);
+      transition: var(--transition-snappy);
+    }
+
+    .nav-links a:hover { color: var(--gold-primary); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .cart-trigger {
+      background: rgba(232, 201, 126, 0.1);
+      border: 1px solid var(--border-subtle);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition-snappy);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gold-primary);
+    }
+
+    .cart-trigger:hover {
+      background: rgba(232, 201, 126, 0.2);
+      border-color: var(--gold-primary);
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
+    }
+
+    #cartCountBadge {
+      background: var(--gold-gradient);
+      color: #000;
+      border-radius: 50%;
+      min-width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 800;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .badge-pop { transform: scale(1.3); }
+
+    /* Hero */
+    .hero-section {
+      max-width: 1440px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-content {
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+
+    .hero-eyebrow {
+      color: var(--gold-primary);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      padding: 0.25rem 1rem;
+      background: rgba(232, 201, 126, 0.1);
+      border-radius: 50px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    h1 {
+      font-size: 4.5rem;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .gold-text {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      max-width: 90%;
+    }
+
+    .btn-primary, .btn-outline {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition-snappy);
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary {
+      background: var(--gold-gradient);
+      color: #050505;
+      box-shadow: 0 4px 15px rgba(232, 201, 126, 0.3);
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(232, 201, 126, 0.4);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold-primary);
+      background: rgba(232, 201, 126, 0.05);
+      color: var(--gold-primary);
+      transform: translateY(-3px);
+    }
+
+    .hero-visual {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 40px;
+      padding: 4rem 2rem;
+      text-align: center;
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      animation: fadeLeft 0.8s ease-out forwards;
+    }
+
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle, rgba(232,201,126,0.1) 0%, transparent 60%);
+      animation: rotateBg 20s linear infinite;
+    }
+
+    @keyframes rotateBg { 100% { transform: rotate(360deg); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeLeft { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+    .floating-dragon {
+      font-size: 5rem;
+      color: var(--gold-primary);
+      filter: drop-shadow(0 0 20px rgba(232, 201, 126, 0.4));
+      animation: floatElement 4s ease-in-out infinite;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes floatElement {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Filter & Books */
+    .filter-area {
+      max-width: 1440px;
+      margin: 2rem auto 6rem auto;
+      padding: 0 2rem;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      background: var(--bg-surface);
+      padding: 1rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(10px);
+    }
+
+    .filter-bar input, .filter-bar select {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 24px;
+      border-radius: 12px;
+      color: var(--text-main);
+      font-size: 1rem;
+      flex: 1;
+      transition: var(--transition-snappy);
+    }
+
+    .filter-bar input:focus, .filter-bar select:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 0 2px rgba(232, 201, 126, 0.2);
+    }
+
+    .filter-bar select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8c97e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1em;
+    }
+    
+    .filter-bar select option { background: var(--bg-deep); color: var(--text-main); }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .book-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      transition: var(--transition-snappy);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .book-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--gold-primary);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(232, 201, 126, 0.15);
+    }
+
+    .book-cover {
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .book-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13, 17, 28, 1) 0%, transparent 60%);
+    }
+
+    .book-cover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .book-card:hover .book-cover-img {
+      transform: scale(1.08);
+    }
+
+    .book-tag {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(3, 5, 10, 0.8);
+      backdrop-filter: blur(4px);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gold-primary);
+      border: 1px solid var(--border-subtle);
+      z-index: 2;
+    }
+
+    .book-info {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+      margin-top: -40px;
+    }
+
+    .book-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .book-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .price-action {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--gold-primary);
+    }
+
+    .add-btn {
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      padding: 8px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: var(--transition-snappy);
+      color: var(--gold-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .add-btn:hover {
+      background: var(--gold-primary);
+      color: #000;
+      box-shadow: var(--shadow-glow);
+    }
+
+    /* Floating Tracker */
+    .tracker-float-btn {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 65px;
+      height: 65px;
+      background: var(--gold-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 300;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 0 4px rgba(232, 201, 126, 0.2);
+      transition: var(--transition-snappy);
+    }
+
+    .tracker-float-btn:hover {
+      transform: scale(1.05) translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(232, 201, 126, 0.4);
+    }
+
+    .tracker-float-btn i {
+      font-size: 1.8rem;
+      color: #050505;
+    }
+
+    .tracker-panel {
+      position: fixed;
+      bottom: 120px;
+      right: 40px;
+      width: 400px;
+      max-height: 550px;
+      background: rgba(13, 17, 28, 0.95);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-radius: 24px;
+      border: 1px solid var(--border-glow);
+      box-shadow: var(--shadow-soft), 0 0 30px rgba(232, 201, 126, 0.1);
+      z-index: 301;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      pointer-events: none;
+      transition: var(--transition-snappy);
+      transform-origin: bottom right;
+    }
+
+    .tracker-panel.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .tracker-header {
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
+
+    .tracker-close {
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    
+    .tracker-close:hover { color: #fff; }
+
+    .tracker-orders-list {
+      padding: 16px;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .order-entry {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--gold-primary);
+      transition: transform 0.2s;
+    }
+    
+    .order-entry:hover { transform: translateX(5px); }
+
+    .status-badge-group {
+      display: flex;
+      gap: 4px;
+      margin: 12px 0;
+    }
+
+    .status-step {
+      flex: 1;
+      text-align: center;
+      font-size: 0.65rem;
+      padding: 6px 2px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      color: var(--text-muted);
+      position: relative;
+    }
+
+    .status-step.active {
+      background: var(--gold-primary);
+      color: #000;
+      font-weight: 700;
+    }
+
+    /* Modal */
+    .purchase-overlay {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .purchase-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .purchase-container {
+      background: rgba(13, 17, 28, 0.95);
+      max-width: 600px;
+      width: 90%;
+      border-radius: 32px;
+      border: 1px solid var(--border-glow);
+      padding: 40px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(232, 201, 126, 0.1);
+      transform: scale(0.95) translateY(20px);
+      transition: var(--transition-snappy);
+    }
+    
+    .purchase-overlay.show .purchase-container {
+      transform: scale(1) translateY(0);
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    
+    .step-indicator::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: var(--border-subtle);
+      z-index: 1;
+    }
+
+    .step-circle {
+      position: relative;
+      z-index: 2;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-deep);
+      border: 2px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: var(--transition-snappy);
+    }
+
+    .step-circle.active-step {
+      background: var(--gold-gradient);
+      border-color: var(--gold-primary);
+      color: #000;
+      box-shadow: var(--shadow-glow);
+    }
+    
+    .step-label {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 8px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      color: var(--text-muted);
+    }
+    
+    .active-step .step-label { color: var(--gold-primary); }
+
+    .form-step {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+
+    .form-step.active-form { display: block; }
+    
+    .form-step h3 {
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+      text-align: center;
+      color: var(--gold-light);
+    }
+
+    input, select {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 20px;
+      border-radius: 16px;
+      color: white;
+      margin-bottom: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: var(--transition-snappy);
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--gold-primary);
+      background: rgba(232, 201, 126, 0.05);
+    }
+
+    .cart-preview-mini {
+      background: rgba(0,0,0,0.4);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 24px;
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .cart-item-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .cart-item-row:last-child { border-bottom: none; }
+
+    .total-amount {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--gold-primary);
+      text-align: right;
+      margin: 20px 0;
+      font-family: 'Cinzel', serif;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    
+    .modal-buttons button { flex: 1; justify-content: center; }
+
+    /* Toast */
+    .premium-toast {
+      position: fixed;
+      bottom: 40px;
+      left: 40px;
+      background: rgba(20, 25, 40, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 16px 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      border-left: 6px solid var(--gold-primary);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateX(-150%);
+      transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1100;
+      font-weight: 500;
+    }
+
+    .premium-toast.show { transform: translateX(0); }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 6rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      background: rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 900px) {
+      .hero-section { grid-template-columns: 1fr; gap: 3rem; text-align: center; margin: 2rem auto; }
+      .hero-desc { margin: 0 auto 2.5rem auto; }
+      h1 { font-size: 3.5rem; }
+      .tracker-panel { width: calc(100% - 40px); right: 20px; bottom: 100px; }
+      .tracker-float-btn { right: 20px; bottom: 20px; }
+      .premium-toast { bottom: 20px; left: 20px; right: 20px; width: calc(100% - 40px); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Ambient Background -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+
+  <header class="glass-header">
+    <div class="nav-container">
+      <div class="logo"><i class="fa-solid fa-hat-wizard"></i> ARCANE PAGES</div>
+      <div class="nav-links">
+        <a href="#books">Grimoires</a>
+      </div>
+      <div class="cart-trigger" id="openPurchaseBtn">
+        <i class="fa-solid fa-cart-shopping"></i> Cart
+        <span id="cartCountBadge">0</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero-section">
+      <div class="hero-content">
+        <span class="hero-eyebrow">✦ The Mystical Emporium ✦</span>
+        <h1>Awaken the <br><span class="gold-text">Forgotten</span> Legends</h1>
+        <p class="hero-desc">Discover a premium collection of enchanted tomes, ancient grimoires, and legendary sagas. Immerse yourself in the magic of D&D, LOTR, Harry Potter, and beyond.</p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button class="btn-primary" id="exploreBtn">
+            Explore Tomes <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <i class="fa-solid fa-dragon floating-dragon"></i>
+        <h3 style="margin-top: 2rem; color: var(--gold-light); font-size: 1.5rem;">The Vault is Open</h3>
+        <p style="color: var(--text-muted); margin-top: 0.5rem;">Over 119 unique enchanted copies await.</p>
+      </div>
+    </div>
+
+    <div class="filter-area" id="books">
+      <div class="filter-bar">
+        <input type="text" id="searchBooks" placeholder="Search spell, title, theme...">
+        <select id="genreFilter">
+          <option value="all">All Realms</option>
+          <option value="dnd">Dungeons & Dragons</option>
+          <option value="lotr">Tolkien's Legendarium</option>
+          <option value="hp">Harry Potter & Wizardry</option>
+          <option value="pj">Percy Jackson & Mythology</option>
+          <option value="dark">Dark Fantasy & Grit</option>
+          <option value="epic">High Epic & Magic Systems</option>
+          <option value="portal">Portal Fantasy & Realms</option>
+        </select>
+        <select id="sortBooks">
+          <option value="default">Sort By: Mystical Power</option>
+          <option value="price_asc">Price: Low to High</option>
+          <option value="price_desc">Price: High to Low</option>
+          <option value="name_asc">Title: A-Z</option>
+          <option value="name_desc">Title: Z-A</option>
+        </select>
+      </div>
+      <div id="booksContainer" class="books-grid"></div>
+      <div style="text-align: center; margin-top: 4rem; display: none;" id="loadMoreContainer">
+        <button class="btn-primary" id="loadMoreBtn" style="padding: 16px 40px; font-size: 1.1rem;">
+          <i class="fa-solid fa-book-open-reader"></i> Reveal More Tomes
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Arcane Pages. Forged in the fires of design.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.6;">Karl, Polo, Aron | Advanced Shopee-style Tracking & Checkout</p>
+  </footer>
+
+  <!-- Floating Order Tracker -->
+  <div class="tracker-float-btn" id="trackerFloatBtn" title="Track Orders">
+    <i class="fa-solid fa-scroll"></i>
+  </div>
+  
+  <div id="trackerPanel" class="tracker-panel">
+    <div class="tracker-header">
+      <span><i class="fa-solid fa-compass"></i> Order Tracker</span>
+      <i class="fa-solid fa-xmark tracker-close" id="closeTrackerBtn"></i>
+    </div>
+    <div id="trackerOrdersList" class="tracker-orders-list">
+      <div style="text-align:center; padding:40px 20px; color: var(--text-muted);">
+        <i class="fa-solid fa-box-open" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+        <br>No active quests yet.
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="purchaseModal" class="purchase-overlay">
+    <div class="purchase-container">
+      <div class="step-indicator">
+        <div class="step-circle" id="step1Indicator">
+          1<span class="step-label">Cart</span>
+        </div>
+        <div class="step-circle" id="step2Indicator">
+          2<span class="step-label">Details</span>
+        </div>
+        <div class="step-circle" id="step3Indicator">
+          3<span class="step-label">Payment</span>
+        </div>
+      </div>
+
+      <!-- Step 1: Cart Review -->
+      <div id="step1" class="form-step active-form">
+        <h3>Your Magical Cart</h3>
+        <div id="cartItemsList" class="cart-preview-mini"></div>
+        <div class="total-amount" id="cartTotalAmount">₱0</div>
+        <button class="btn-primary" id="nextStep1" style="width:100%; justify-content:center;">Proceed to Checkout <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+
+      <!-- Step 2: Buyer Credentials -->
+      <div id="step2" class="form-step">
+        <h3>Traveler Credentials</h3>
+        <input type="text" id="buyerFullName" placeholder="Full Name (Your Title) *" required>
+        <input type="email" id="buyerEmail" placeholder="Email Address *" required>
+        <input type="text" id="buyerAddress" placeholder="Shipping Realm & Tower *" required>
+        <input type="text" id="buyerPhone" placeholder="Raven / Contact Number">
+        <div class="modal-buttons">
+          <button class="btn-outline" id="backStep2"><i class="fa-solid fa-arrow-left"></i> Back</button>
+          <button class="btn-primary" id="nextStep2">Review Order <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Step 3: Payment -->
+      <div id="step3" class="form-step">
+        <h3>Finalize Summoning</h3>
+        <div id="finalOrderSummary" class="cart-preview-mini" style="max-height:160px;"></div>
+        <select id="paymentMethod" style="margin-top:10px;">
+          <option value="credit">Arcane Credit Card</option>
+          <option value="paypal">Enchanted PayPal</option>
+          <option value="cod">Gold on Delivery</option>
+        </select>
+        <div id="orderTotalFinal" class="total-amount"></div>
+        <div class="modal-buttons">
+          <button class="btn-outline" id="backStep3"><i class="fa-solid fa-arrow-left"></i> Back</button>
+          <button class="btn-primary" id="confirmOrderFinal"><i class="fa-solid fa-wand-magic-sparkles"></i> Summon Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book Details Modal -->
+  <div id="bookDetailsModal" class="purchase-overlay">
+    <div class="purchase-container book-details-container" style="max-width: 800px; position: relative;">
+      <i class="fa-solid fa-xmark tracker-close" id="closeDetailsBtn" style="position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; z-index: 10;"></i>
+      <div id="bookDetailsContent" style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
+        <!-- Content injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <div id="globalToast" class="premium-toast">
+    <i class="fa-solid fa-sparkles" style="color: var(--gold-primary);"></i>
+    <span id="toastMsgText">Magic in motion</span>
+  </div>
+
+  <script>
+    // ---------- DATABASE ----------
+    const fantasyBooks = [
+    {
+        "title": "Harry Potter and the Sorcerer's Stone",
+        "genre": "hp",
+        "tag": "Magic School",
+        "price": 699,
+        "desc": "The boy who lived begins his magical journey.",
+        "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80",
+        "id": 1
+    },
+    {
+        "title": "Harry Potter and the Chamber of Secrets",
+        "genre": "hp",
+        "tag": "Magic School",
+        "price": 750,
+        "desc": "A monster is unleashed in Hogwarts.",
+        "img": "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&w=600&q=80",
+        "id": 2
+    },
+    {
+        "title": "Harry Potter and the Prisoner of Azkaban",
+        "genre": "hp",
+        "tag": "Magic School",
+        "price": 799,
+        "desc": "Sirius Black escapes from Azkaban.",
+        "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80",
+        "id": 3
+    },
+    {
+        "title": "Harry Potter and the Goblet of Fire",
+        "genre": "hp",
+        "tag": "Magic School",
+        "price": 899,
+        "desc": "The Triwizard Tournament brings dark trials.",
+        "img": "https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?auto=format&fit=crop&w=600&q=80",
+        "id": 4
+    },
+    {
+        "title": "Harry Potter and the Order of the Phoenix",
+        "genre": "hp",
+        "tag": "Magic School",
+        "price": 950,
+        "desc": "Dumbledore's Army rises against the darkness.",
+        "img": "https://images.unsplash.com/photo-1524578974057-3f3baecae251?auto=format&fit=crop&w=600&q=80",
+        "id": 5
+    },
+    {
+        "title": "Harry Potter and the Half-Blood Prince",
+        "genre": "hp",
+        "tag": "Magic School",
+        "price": 899,
+        "desc": "Voldemort's past is revealed.",
+        "img": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+        "id": 6
+    },
+    {
+        "title": "Harry Potter and the Deathly Hallows",
+        "genre": "hp",
+        "tag": "Magic School",
+        "price": 999,
+        "desc": "The final battle for Hogwarts.",
+        "img": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+        "id": 7
+    },
+    {
+        "title": "Fantastic Beasts and Where to Find Them",
+        "genre": "hp",
+        "tag": "Lore",
+        "price": 599,
+        "desc": "Newt Scamander's guide to magical creatures.",
+        "img": "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=600&q=80",
+        "id": 8
+    },
+    {
+        "title": "Quidditch Through the Ages",
+        "genre": "hp",
+        "tag": "Lore",
+        "price": 499,
+        "desc": "The definitive guide to the magical sport.",
+        "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80",
+        "id": 9
+    },
+    {
+        "title": "The Tales of Beedle the Bard",
+        "genre": "hp",
+        "tag": "Lore",
+        "price": 550,
+        "desc": "Classic wizarding fairy tales.",
+        "img": "https://images.unsplash.com/photo-1524578974057-3f3baecae251?auto=format&fit=crop&w=600&q=80",
+        "id": 10
+    },
+    {
+        "title": "Harry Potter and the Cursed Child",
+        "genre": "hp",
+        "tag": "Play",
+        "price": 799,
+        "desc": "The eighth story, nineteen years later.",
+        "img": "https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=600&q=80",
+        "id": 11
+    },
+    {
+        "title": "Player's Handbook",
+        "genre": "dnd",
+        "tag": "Core Rulebook",
+        "price": 2499,
+        "desc": "Essential adventurer rules for forging your legend.",
+        "img": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=600&q=80",
+        "id": 12
+    },
+    {
+        "title": "Monster Manual",
+        "genre": "dnd",
+        "tag": "Bestiary",
+        "price": 2299,
+        "desc": "A menagerie of deadly monsters and horrid creatures.",
+        "img": "https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=600&q=80",
+        "id": 13
+    },
+    {
+        "title": "Dungeon Master's Guide",
+        "genre": "dnd",
+        "tag": "Campaign",
+        "price": 2399,
+        "desc": "The master toolkit for weaving epic campaigns.",
+        "img": "https://images.unsplash.com/photo-1618365908648-e71bd5716cba?auto=format&fit=crop&w=600&q=80",
+        "id": 14
+    },
+    {
+        "title": "Tasha's Cauldron of Everything",
+        "genre": "dnd",
+        "tag": "Expansion",
+        "price": 2199,
+        "desc": "New subclasses, spells, and magical options.",
+        "img": "https://images.unsplash.com/photo-1618365908648-e71bd5716cba?auto=format&fit=crop&w=600&q=80",
+        "id": 15
+    },
+    {
+        "title": "Xanathar's Guide to Everything",
+        "genre": "dnd",
+        "tag": "Expansion",
+        "price": 2199,
+        "desc": "A wealth of new rules and character options.",
+        "img": "https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&w=600&q=80",
+        "id": 16
+    },
+    {
+        "title": "Volo's Guide to Monsters",
+        "genre": "dnd",
+        "tag": "Lore",
+        "price": 2099,
+        "desc": "Deep dive into iconic D&D monsters.",
+        "img": "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=600&q=80",
+        "id": 17
+    },
+    {
+        "title": "Mordenkainen's Tome of Foes",
+        "genre": "dnd",
+        "tag": "Bestiary",
+        "price": 2099,
+        "desc": "Conflicts of the multiverse and new foes.",
+        "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80",
+        "id": 18
+    },
+    {
+        "title": "Sword Coast Adventurer's Guide",
+        "genre": "dnd",
+        "tag": "Setting",
+        "price": 1999,
+        "desc": "Details on the Forgotten Realms setting.",
+        "img": "https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=600&q=80",
+        "id": 19
+    },
+    {
+        "title": "Eberron: Rising from the Last War",
+        "genre": "dnd",
+        "tag": "Setting",
+        "price": 2299,
+        "desc": "A world of magic and steampunk technology.",
+        "img": "https://images.unsplash.com/photo-1478098711614-b7512d409616?auto=format&fit=crop&w=600&q=80",
+        "id": 20
+    },
+    {
+        "title": "Guildmasters' Guide to Ravnica",
+        "genre": "dnd",
+        "tag": "Setting",
+        "price": 2299,
+        "desc": "Explore the worldwide cityscape of Ravnica.",
+        "img": "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=600&q=80",
+        "id": 21
+    },
+    {
+        "title": "Mythic Odysseys of Theros",
+        "genre": "dnd",
+        "tag": "Setting",
+        "price": 2299,
+        "desc": "A world inspired by Greek mythology.",
+        "img": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80",
+        "id": 22
+    },
+    {
+        "title": "Curse of Strahd",
+        "genre": "dnd",
+        "tag": "Adventure",
+        "price": 2499,
+        "desc": "A gothic horror adventure in Barovia.",
+        "img": "https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?auto=format&fit=crop&w=600&q=80",
+        "id": 23
+    },
+    {
+        "title": "Baldur's Gate: Descent into Avernus",
+        "genre": "dnd",
+        "tag": "Adventure",
+        "price": 2399,
+        "desc": "A journey into the Nine Hells.",
+        "img": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=600&q=80",
+        "id": 24
+    },
+    {
+        "title": "Waterdeep: Dragon Heist",
+        "genre": "dnd",
+        "tag": "Adventure",
+        "price": 2199,
+        "desc": "A treasure hunt in the City of Splendors.",
+        "img": "https://images.unsplash.com/photo-1629196914539-7871adfaeb4e?auto=format&fit=crop&w=600&q=80",
+        "id": 25
+    },
+    {
+        "title": "Out of the Abyss",
+        "genre": "dnd",
+        "tag": "Adventure",
+        "price": 2299,
+        "desc": "Escape the demons of the Underdark.",
+        "img": "https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?auto=format&fit=crop&w=600&q=80",
+        "id": 26
+    },
+    {
+        "title": "Tomb of Annihilation",
+        "genre": "dnd",
+        "tag": "Adventure",
+        "price": 2399,
+        "desc": "A deadly jungle curse awaits.",
+        "img": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80",
+        "id": 27
+    },
+    {
+        "title": "Storm King's Thunder",
+        "genre": "dnd",
+        "tag": "Adventure",
+        "price": 2399,
+        "desc": "Giants run amok across the Realms.",
+        "img": "https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=600&q=80",
+        "id": 28
+    },
+    {
+        "title": "The Fellowship of the Ring",
+        "genre": "lotr",
+        "tag": "Epic",
+        "price": 1799,
+        "desc": "The journey to Mount Doom begins.",
+        "img": "https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=600&q=80",
+        "id": 29
+    },
+    {
+        "title": "The Two Towers",
+        "genre": "lotr",
+        "tag": "Epic",
+        "price": 1799,
+        "desc": "The fellowship is broken, war brews.",
+        "img": "https://images.unsplash.com/photo-1614113489855-66422ad300a4?auto=format&fit=crop&w=600&q=80",
+        "id": 30
+    },
+    {
+        "title": "The Return of the King",
+        "genre": "lotr",
+        "tag": "Epic",
+        "price": 1899,
+        "desc": "The final stand of Men against Sauron.",
+        "img": "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=600&q=80",
+        "id": 31
+    },
+    {
+        "title": "The Hobbit",
+        "genre": "lotr",
+        "tag": "Adventure",
+        "price": 1499,
+        "desc": "There and back again: a hobbit's tale.",
+        "img": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80",
+        "id": 32
+    },
+    {
+        "title": "The Silmarillion",
+        "genre": "lotr",
+        "tag": "Mythology",
+        "price": 1999,
+        "desc": "The ancient myths of Middle-earth's First Age.",
+        "img": "https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&w=600&q=80",
+        "id": 33
+    },
+    {
+        "title": "The Children of Húrin",
+        "genre": "lotr",
+        "tag": "Mythology",
+        "price": 1599,
+        "desc": "A tragic tale of the First Age.",
+        "img": "https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=600&q=80",
+        "id": 34
+    },
+    {
+        "title": "Beren and Lúthien",
+        "genre": "lotr",
+        "tag": "Mythology",
+        "price": 1599,
+        "desc": "A romance spanning mortality and immortality.",
+        "img": "https://images.unsplash.com/photo-1455390582262-044cdead27d8?auto=format&fit=crop&w=600&q=80",
+        "id": 35
+    },
+    {
+        "title": "The Fall of Gondolin",
+        "genre": "lotr",
+        "tag": "Mythology",
+        "price": 1699,
+        "desc": "The destruction of the hidden elven city.",
+        "img": "https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&w=600&q=80",
+        "id": 36
+    },
+    {
+        "title": "Unfinished Tales",
+        "genre": "lotr",
+        "tag": "Lore",
+        "price": 1799,
+        "desc": "Stories from Middle-earth's history.",
+        "img": "https://images.unsplash.com/photo-1614113489855-66422ad300a4?auto=format&fit=crop&w=600&q=80",
+        "id": 37
+    },
+    {
+        "title": "The History of Middle-earth",
+        "genre": "lotr",
+        "tag": "Lore",
+        "price": 2999,
+        "desc": "Comprehensive notes on Tolkien's legendarium.",
+        "img": "https://images.unsplash.com/photo-1455390582262-044cdead27d8?auto=format&fit=crop&w=600&q=80",
+        "id": 38
+    },
+    {
+        "title": "The Lightning Thief",
+        "genre": "pj",
+        "tag": "Mythology",
+        "price": 799,
+        "desc": "Percy discovers he is a demigod.",
+        "img": "https://images.unsplash.com/photo-1629196914539-7871adfaeb4e?auto=format&fit=crop&w=600&q=80",
+        "id": 39
+    },
+    {
+        "title": "The Sea of Monsters",
+        "genre": "pj",
+        "tag": "Mythology",
+        "price": 799,
+        "desc": "A quest to the Bermuda Triangle.",
+        "img": "https://images.unsplash.com/photo-1614113489855-66422ad300a4?auto=format&fit=crop&w=600&q=80",
+        "id": 40
+    },
+    {
+        "title": "The Titan's Curse",
+        "genre": "pj",
+        "tag": "Mythology",
+        "price": 850,
+        "desc": "Artemis is kidnapped by a mysterious foe.",
+        "img": "https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&w=600&q=80",
+        "id": 41
+    },
+    {
+        "title": "The Battle of the Labyrinth",
+        "genre": "pj",
+        "tag": "Mythology",
+        "price": 899,
+        "desc": "Navigating Daedalus' deadly maze.",
+        "img": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80",
+        "id": 42
+    },
+    {
+        "title": "The Last Olympian",
+        "genre": "pj",
+        "tag": "Mythology",
+        "price": 950,
+        "desc": "The final battle against Kronos in Manhattan.",
+        "img": "https://images.unsplash.com/photo-1478098711614-b7512d409616?auto=format&fit=crop&w=600&q=80",
+        "id": 43
+    },
+    {
+        "title": "The Lost Hero",
+        "genre": "pj",
+        "tag": "Roman Myth",
+        "price": 899,
+        "desc": "A new generation of heroes emerges.",
+        "img": "https://images.unsplash.com/photo-1614113489855-66422ad300a4?auto=format&fit=crop&w=600&q=80",
+        "id": 44
+    },
+    {
+        "title": "The Son of Neptune",
+        "genre": "pj",
+        "tag": "Roman Myth",
+        "price": 899,
+        "desc": "Percy arrives at Camp Jupiter.",
+        "img": "https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?auto=format&fit=crop&w=600&q=80",
+        "id": 45
+    },
+    {
+        "title": "The Mark of Athena",
+        "genre": "pj",
+        "tag": "Roman Myth",
+        "price": 950,
+        "desc": "Greeks and Romans must unite.",
+        "img": "https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?auto=format&fit=crop&w=600&q=80",
+        "id": 46
+    },
+    {
+        "title": "The House of Hades",
+        "genre": "pj",
+        "tag": "Roman Myth",
+        "price": 999,
+        "desc": "A journey through Tartarus itself.",
+        "img": "https://images.unsplash.com/photo-1455390582262-044cdead27d8?auto=format&fit=crop&w=600&q=80",
+        "id": 47
+    },
+    {
+        "title": "The Blood of Olympus",
+        "genre": "pj",
+        "tag": "Roman Myth",
+        "price": 999,
+        "desc": "The final battle against Gaea.",
+        "img": "https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=600&q=80",
+        "id": 48
+    },
+    {
+        "title": "The Hidden Oracle",
+        "genre": "pj",
+        "tag": "Apollo",
+        "price": 850,
+        "desc": "Apollo is cast down to earth as a mortal.",
+        "img": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80",
+        "id": 49
+    },
+    {
+        "title": "The Dark Prophecy",
+        "genre": "pj",
+        "tag": "Apollo",
+        "price": 850,
+        "desc": "Apollo's quest for redemption continues.",
+        "img": "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=600&q=80",
+        "id": 50
+    },
+    {
+        "title": "The Burning Maze",
+        "genre": "pj",
+        "tag": "Apollo",
+        "price": 899,
+        "desc": "A deadly labyrinth of fire awaits.",
+        "img": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=600&q=80",
+        "id": 51
+    },
+    {
+        "title": "The Tyrant's Tomb",
+        "genre": "pj",
+        "tag": "Apollo",
+        "price": 899,
+        "desc": "A defense of Camp Jupiter.",
+        "img": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80",
+        "id": 52
+    },
+    {
+        "title": "The Tower of Nero",
+        "genre": "pj",
+        "tag": "Apollo",
+        "price": 950,
+        "desc": "Apollo faces his final trial against the Emperor.",
+        "img": "https://images.unsplash.com/photo-1455390582262-044cdead27d8?auto=format&fit=crop&w=600&q=80",
+        "id": 53
+    },
+    {
+        "title": "A Game of Thrones",
+        "genre": "dark",
+        "tag": "Political",
+        "price": 1699,
+        "desc": "Winter is coming to the realm of Westeros.",
+        "img": "https://images.unsplash.com/photo-1618365908648-e71bd5716cba?auto=format&fit=crop&w=600&q=80",
+        "id": 54
+    },
+    {
+        "title": "A Clash of Kings",
+        "genre": "dark",
+        "tag": "Political",
+        "price": 1799,
+        "desc": "The War of the Five Kings erupts.",
+        "img": "https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=600&q=80",
+        "id": 55
+    },
+    {
+        "title": "A Storm of Swords",
+        "genre": "dark",
+        "tag": "Political",
+        "price": 1999,
+        "desc": "Betrayal and blood across the Seven Kingdoms.",
+        "img": "https://images.unsplash.com/photo-1618365908648-e71bd5716cba?auto=format&fit=crop&w=600&q=80",
+        "id": 56
+    },
+    {
+        "title": "A Feast for Crows",
+        "genre": "dark",
+        "tag": "Political",
+        "price": 1699,
+        "desc": "The aftermath of the devastating war.",
+        "img": "https://images.unsplash.com/photo-1478098711614-b7512d409616?auto=format&fit=crop&w=600&q=80",
+        "id": 57
+    },
+    {
+        "title": "A Dance with Dragons",
+        "genre": "dark",
+        "tag": "Political",
+        "price": 1899,
+        "desc": "Daenerys rules in Meereen.",
+        "img": "https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=600&q=80",
+        "id": 58
+    },
+    {
+        "title": "Fire & Blood",
+        "genre": "dark",
+        "tag": "Lore",
+        "price": 1999,
+        "desc": "The history of House Targaryen.",
+        "img": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80",
+        "id": 59
+    },
+    {
+        "title": "A Knight of the Seven Kingdoms",
+        "genre": "dark",
+        "tag": "Prequel",
+        "price": 1499,
+        "desc": "The tales of Dunk and Egg.",
+        "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80",
+        "id": 60
+    },
+    {
+        "title": "The Last Wish",
+        "genre": "dark",
+        "tag": "Witcher",
+        "price": 899,
+        "desc": "Geralt of Rivia's origins as a monster hunter.",
+        "img": "https://images.unsplash.com/photo-1626618012641-bfbca5a31239?auto=format&fit=crop&w=600&q=80",
+        "id": 61
+    },
+    {
+        "title": "Sword of Destiny",
+        "genre": "dark",
+        "tag": "Witcher",
+        "price": 899,
+        "desc": "More tales of the White Wolf.",
+        "img": "https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=600&q=80",
+        "id": 62
+    },
+    {
+        "title": "Blood of Elves",
+        "genre": "dark",
+        "tag": "Witcher",
+        "price": 950,
+        "desc": "Ciri begins her training at Kaer Morhen.",
+        "img": "https://images.unsplash.com/photo-1626618012641-bfbca5a31239?auto=format&fit=crop&w=600&q=80",
+        "id": 63
+    },
+    {
+        "title": "The Time of Contempt",
+        "genre": "dark",
+        "tag": "Witcher",
+        "price": 950,
+        "desc": "A coup reshapes the Northern Kingdoms.",
+        "img": "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=600&q=80",
+        "id": 64
+    },
+    {
+        "title": "Baptism of Fire",
+        "genre": "dark",
+        "tag": "Witcher",
+        "price": 999,
+        "desc": "Geralt forms a new fellowship.",
+        "img": "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&w=600&q=80",
+        "id": 65
+    },
+    {
+        "title": "The Tower of the Swallow",
+        "genre": "dark",
+        "tag": "Witcher",
+        "price": 999,
+        "desc": "Ciri runs from those who hunt her.",
+        "img": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80",
+        "id": 66
+    },
+    {
+        "title": "The Lady of the Lake",
+        "genre": "dark",
+        "tag": "Witcher",
+        "price": 1050,
+        "desc": "The epic conclusion of Geralt and Ciri's saga.",
+        "img": "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=600&q=80",
+        "id": 67
+    },
+    {
+        "title": "Season of Storms",
+        "genre": "dark",
+        "tag": "Witcher",
+        "price": 950,
+        "desc": "A standalone adventure of the Witcher.",
+        "img": "https://images.unsplash.com/photo-1618365908648-e71bd5716cba?auto=format&fit=crop&w=600&q=80",
+        "id": 68
+    },
+    {
+        "title": "The Blade Itself",
+        "genre": "dark",
+        "tag": "First Law",
+        "price": 1299,
+        "desc": "A gritty tale of barbarians and torturers.",
+        "img": "https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&w=600&q=80",
+        "id": 69
+    },
+    {
+        "title": "Before They Are Hanged",
+        "genre": "dark",
+        "tag": "First Law",
+        "price": 1350,
+        "desc": "The journey into the unknown.",
+        "img": "https://images.unsplash.com/photo-1618365908648-e71bd5716cba?auto=format&fit=crop&w=600&q=80",
+        "id": 70
+    },
+    {
+        "title": "Last Argument of Kings",
+        "genre": "dark",
+        "tag": "First Law",
+        "price": 1450,
+        "desc": "The bloody conclusion to the trilogy.",
+        "img": "https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&w=600&q=80",
+        "id": 71
+    },
+    {
+        "title": "The Black Company",
+        "genre": "dark",
+        "tag": "Mercenary",
+        "price": 1199,
+        "desc": "Annals of an elite mercenary company.",
+        "img": "https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&w=600&q=80",
+        "id": 72
+    },
+    {
+        "title": "Prince of Thorns",
+        "genre": "dark",
+        "tag": "Broken Empire",
+        "price": 1099,
+        "desc": "A ruthless prince seeks revenge.",
+        "img": "https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?auto=format&fit=crop&w=600&q=80",
+        "id": 73
+    },
+    {
+        "title": "The Final Empire",
+        "genre": "epic",
+        "tag": "Mistborn",
+        "price": 1199,
+        "desc": "A masterful heist involving allomantic magic.",
+        "img": "https://images.unsplash.com/photo-1524578974057-3f3baecae251?auto=format&fit=crop&w=600&q=80",
+        "id": 74
+    },
+    {
+        "title": "The Well of Ascension",
+        "genre": "epic",
+        "tag": "Mistborn",
+        "price": 1250,
+        "desc": "Ruling a ruined empire is harder than conquering it.",
+        "img": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80",
+        "id": 75
+    },
+    {
+        "title": "The Hero of Ages",
+        "genre": "epic",
+        "tag": "Mistborn",
+        "price": 1350,
+        "desc": "The world ends in ash and mist.",
+        "img": "https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&w=600&q=80",
+        "id": 76
+    },
+    {
+        "title": "The Alloy of Law",
+        "genre": "epic",
+        "tag": "Mistborn Era 2",
+        "price": 1099,
+        "desc": "Guns and magic in a new era.",
+        "img": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=600&q=80",
+        "id": 77
+    },
+    {
+        "title": "Shadows of Self",
+        "genre": "epic",
+        "tag": "Mistborn Era 2",
+        "price": 1150,
+        "desc": "A hunt for a rogue allomancer.",
+        "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80",
+        "id": 78
+    },
+    {
+        "title": "The Bands of Mourning",
+        "genre": "epic",
+        "tag": "Mistborn Era 2",
+        "price": 1199,
+        "desc": "Searching for the Lord Ruler's power.",
+        "img": "https://images.unsplash.com/photo-1629196914539-7871adfaeb4e?auto=format&fit=crop&w=600&q=80",
+        "id": 79
+    },
+    {
+        "title": "The Lost Metal",
+        "genre": "epic",
+        "tag": "Mistborn Era 2",
+        "price": 1299,
+        "desc": "The conclusion of the Wax and Wayne saga.",
+        "img": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+        "id": 80
+    },
+    {
+        "title": "The Way of Kings",
+        "genre": "epic",
+        "tag": "Stormlight",
+        "price": 1999,
+        "desc": "Life before death. Strength before weakness.",
+        "img": "https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&w=600&q=80",
+        "id": 81
+    },
+    {
+        "title": "Words of Radiance",
+        "genre": "epic",
+        "tag": "Stormlight",
+        "price": 2099,
+        "desc": "The Knights Radiant must stand again.",
+        "img": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80",
+        "id": 82
+    },
+    {
+        "title": "Oathbringer",
+        "genre": "epic",
+        "tag": "Stormlight",
+        "price": 2199,
+        "desc": "Uncovering the dark secrets of the past.",
+        "img": "https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&w=600&q=80",
+        "id": 83
+    },
+    {
+        "title": "Rhythm of War",
+        "genre": "epic",
+        "tag": "Stormlight",
+        "price": 2299,
+        "desc": "A brutal war of attrition begins.",
+        "img": "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=600&q=80",
+        "id": 84
+    },
+    {
+        "title": "Elantris",
+        "genre": "epic",
+        "tag": "Cosmere",
+        "price": 1299,
+        "desc": "A cursed city of fallen gods.",
+        "img": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=600&q=80",
+        "id": 85
+    },
+    {
+        "title": "Warbreaker",
+        "genre": "epic",
+        "tag": "Cosmere",
+        "price": 1299,
+        "desc": "A magic system fueled by breath and color.",
+        "img": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80",
+        "id": 86
+    },
+    {
+        "title": "The Eye of the World",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1499,
+        "desc": "The Dragon is reborn.",
+        "img": "https://images.unsplash.com/photo-1524578974057-3f3baecae251?auto=format&fit=crop&w=600&q=80",
+        "id": 87
+    },
+    {
+        "title": "The Great Hunt",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1550,
+        "desc": "The search for the Horn of Valere.",
+        "img": "https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=600&q=80",
+        "id": 88
+    },
+    {
+        "title": "The Dragon Reborn",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1599,
+        "desc": "Rand accepts his destiny.",
+        "img": "https://images.unsplash.com/photo-1524578974057-3f3baecae251?auto=format&fit=crop&w=600&q=80",
+        "id": 89
+    },
+    {
+        "title": "The Shadow Rising",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1699,
+        "desc": "Journey to the Aiel Waste.",
+        "img": "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=600&q=80",
+        "id": 90
+    },
+    {
+        "title": "The Fires of Heaven",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1699,
+        "desc": "The forsaken prepare their strike.",
+        "img": "https://images.unsplash.com/photo-1618365908648-e71bd5716cba?auto=format&fit=crop&w=600&q=80",
+        "id": 91
+    },
+    {
+        "title": "Lord of Chaos",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1750,
+        "desc": "The Black Tower is founded.",
+        "img": "https://images.unsplash.com/photo-1614113489855-66422ad300a4?auto=format&fit=crop&w=600&q=80",
+        "id": 92
+    },
+    {
+        "title": "A Crown of Swords",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1750,
+        "desc": "The search for the Bowl of the Winds.",
+        "img": "https://images.unsplash.com/photo-1455390582262-044cdead27d8?auto=format&fit=crop&w=600&q=80",
+        "id": 93
+    },
+    {
+        "title": "The Path of Daggers",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1699,
+        "desc": "The Seanchan invasion intensifies.",
+        "img": "https://images.unsplash.com/photo-1626618012641-bfbca5a31239?auto=format&fit=crop&w=600&q=80",
+        "id": 94
+    },
+    {
+        "title": "Winter's Heart",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1699,
+        "desc": "Cleansing the male half of the True Source.",
+        "img": "https://images.unsplash.com/photo-1455390582262-044cdead27d8?auto=format&fit=crop&w=600&q=80",
+        "id": 95
+    },
+    {
+        "title": "Crossroads of Twilight",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1650,
+        "desc": "The world reacts to the cleansing.",
+        "img": "https://images.unsplash.com/photo-1478098711614-b7512d409616?auto=format&fit=crop&w=600&q=80",
+        "id": 96
+    },
+    {
+        "title": "Knife of Dreams",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1799,
+        "desc": "Tarmon Gai'don approaches.",
+        "img": "https://images.unsplash.com/photo-1511108690759-009324a90311?auto=format&fit=crop&w=600&q=80",
+        "id": 97
+    },
+    {
+        "title": "The Gathering Storm",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1899,
+        "desc": "The final preparations for the Last Battle.",
+        "img": "https://images.unsplash.com/photo-1614113489855-66422ad300a4?auto=format&fit=crop&w=600&q=80",
+        "id": 98
+    },
+    {
+        "title": "Towers of Midnight",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 1899,
+        "desc": "The forces of Light gather.",
+        "img": "https://images.unsplash.com/photo-1618365908648-e71bd5716cba?auto=format&fit=crop&w=600&q=80",
+        "id": 99
+    },
+    {
+        "title": "A Memory of Light",
+        "genre": "epic",
+        "tag": "Wheel of Time",
+        "price": 2199,
+        "desc": "The Last Battle is fought.",
+        "img": "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=600&q=80",
+        "id": 100
+    },
+    {
+        "title": "The Name of the Wind",
+        "genre": "epic",
+        "tag": "Kingkiller",
+        "price": 1399,
+        "desc": "The legend of Kvothe, the arcane musician.",
+        "img": "https://images.unsplash.com/photo-1614113489855-66422ad300a4?auto=format&fit=crop&w=600&q=80",
+        "id": 101
+    },
+    {
+        "title": "The Wise Man's Fear",
+        "genre": "epic",
+        "tag": "Kingkiller",
+        "price": 1499,
+        "desc": "Kvothe's journey into the Fae realm.",
+        "img": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80",
+        "id": 102
+    },
+    {
+        "title": "The Slow Regard of Silent Things",
+        "genre": "epic",
+        "tag": "Kingkiller",
+        "price": 999,
+        "desc": "A week in the life of Auri.",
+        "img": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=600&q=80",
+        "id": 103
+    },
+    {
+        "title": "The Lion, the Witch and the Wardrobe",
+        "genre": "portal",
+        "tag": "Narnia",
+        "price": 899,
+        "desc": "Step through the wardrobe into a frozen land.",
+        "img": "https://images.unsplash.com/photo-1626618012641-bfbca5a31239?auto=format&fit=crop&w=600&q=80",
+        "id": 104
+    },
+    {
+        "title": "Prince Caspian",
+        "genre": "portal",
+        "tag": "Narnia",
+        "price": 850,
+        "desc": "The return to a much-changed Narnia.",
+        "img": "https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&w=600&q=80",
+        "id": 105
+    },
+    {
+        "title": "The Voyage of the Dawn Treader",
+        "genre": "portal",
+        "tag": "Narnia",
+        "price": 899,
+        "desc": "A journey to the edge of the world.",
+        "img": "https://images.unsplash.com/photo-1476275466078-4007374efbbe?auto=format&fit=crop&w=600&q=80",
+        "id": 106
+    },
+    {
+        "title": "The Silver Chair",
+        "genre": "portal",
+        "tag": "Narnia",
+        "price": 899,
+        "desc": "The quest to find the lost prince.",
+        "img": "https://images.unsplash.com/photo-1524578974057-3f3baecae251?auto=format&fit=crop&w=600&q=80",
+        "id": 107
+    },
+    {
+        "title": "The Horse and His Boy",
+        "genre": "portal",
+        "tag": "Narnia",
+        "price": 850,
+        "desc": "An escape across the desert.",
+        "img": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80",
+        "id": 108
+    },
+    {
+        "title": "The Magician's Nephew",
+        "genre": "portal",
+        "tag": "Narnia",
+        "price": 899,
+        "desc": "The creation of Narnia.",
+        "img": "https://images.unsplash.com/photo-1626618012641-bfbca5a31239?auto=format&fit=crop&w=600&q=80",
+        "id": 109
+    },
+    {
+        "title": "The Last Battle",
+        "genre": "portal",
+        "tag": "Narnia",
+        "price": 950,
+        "desc": "The end of the Narnian world.",
+        "img": "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80",
+        "id": 110
+    },
+    {
+        "title": "Alice's Adventures in Wonderland",
+        "genre": "portal",
+        "tag": "Classic",
+        "price": 699,
+        "desc": "Down the rabbit hole.",
+        "img": "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=600&q=80",
+        "id": 111
+    },
+    {
+        "title": "Through the Looking-Glass",
+        "genre": "portal",
+        "tag": "Classic",
+        "price": 699,
+        "desc": "A game of magical chess.",
+        "img": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=600&q=80",
+        "id": 112
+    },
+    {
+        "title": "Coraline",
+        "genre": "portal",
+        "tag": "Dark",
+        "price": 799,
+        "desc": "The Other Mother waits.",
+        "img": "https://images.unsplash.com/photo-1629196914539-7871adfaeb4e?auto=format&fit=crop&w=600&q=80",
+        "id": 113
+    },
+    {
+        "title": "Neverwhere",
+        "genre": "portal",
+        "tag": "Urban",
+        "price": 950,
+        "desc": "London Below is a dangerous place.",
+        "img": "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?auto=format&fit=crop&w=600&q=80",
+        "id": 114
+    },
+    {
+        "title": "A Wizard of Earthsea",
+        "genre": "portal",
+        "tag": "Earthsea",
+        "price": 899,
+        "desc": "Ged faces the shadow he unleashed.",
+        "img": "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=600&q=80",
+        "id": 115
+    },
+    {
+        "title": "The Tombs of Atuan",
+        "genre": "portal",
+        "tag": "Earthsea",
+        "price": 850,
+        "desc": "A priestess in the dark labyrinth.",
+        "img": "https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=600&q=80",
+        "id": 116
+    },
+    {
+        "title": "The Farthest Shore",
+        "genre": "portal",
+        "tag": "Earthsea",
+        "price": 899,
+        "desc": "Magic is draining from the world.",
+        "img": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80",
+        "id": 117
+    },
+    {
+        "title": "Tehanu",
+        "genre": "portal",
+        "tag": "Earthsea",
+        "price": 850,
+        "desc": "The later life of Ged and Tenar.",
+        "img": "https://images.unsplash.com/photo-1555448248-2571daf6344b?auto=format&fit=crop&w=600&q=80",
+        "id": 118
+    },
+    {
+        "title": "The Other Wind",
+        "genre": "portal",
+        "tag": "Earthsea",
+        "price": 899,
+        "desc": "Mending the rift between life and death.",
+        "img": "https://images.unsplash.com/photo-1588666309990-d68f08e3d4a6?auto=format&fit=crop&w=600&q=80",
+        "id": 119
+    }
+];
+
+    
+    let cart = [];
+    let orders = [];
+    let currentPage = 1;
+    const booksPerPage = 16;
+    let currentFilteredBooks = [];
+
+    // DOM Elements
+    const cartCountSpan = document.getElementById('cartCountBadge');
+    const booksContainer = document.getElementById('booksContainer');
+    const searchInput = document.getElementById('searchBooks');
+    const genreFilter = document.getElementById('genreFilter');
+    const sortFilter = document.getElementById('sortBooks');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const loadMoreContainer = document.getElementById('loadMoreContainer');
+    const toastElem = document.getElementById('globalToast');
+    const toastText = document.getElementById('toastMsgText');
+
+    function showToast(text) {
+      toastText.textContent = text;
+      toastElem.classList.add('show');
+      setTimeout(() => toastElem.classList.remove('show'), 3000);
+    }
+
+    function updateCartUI() {
+      cartCountSpan.innerText = cart.length;
+      cartCountSpan.classList.add('badge-pop');
+      setTimeout(() => cartCountSpan.classList.remove('badge-pop'), 300);
+    }
+
+    
+    function applyTiltEffect() {
+      const cards = document.querySelectorAll('.book-card');
+      
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = ((y - centerY) / centerY) * -10;
+          const rotateY = ((x - centerX) / centerX) * 10;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+    }
+
+    function renderBooks(resetPage = true) {
+      if (resetPage) currentPage = 1;
+
+      const query = searchInput.value.toLowerCase();
+      const genre = genreFilter.value;
+      const sort = sortFilter ? sortFilter.value : 'default';
+
+      currentFilteredBooks = fantasyBooks.filter(b => 
+        (b.title.toLowerCase().includes(query) || b.tag.toLowerCase().includes(query)) && 
+        (genre === 'all' || b.genre === genre)
+      );
+
+      // Sorting
+      if (sort === 'price_asc') currentFilteredBooks.sort((a,b) => a.price - b.price);
+      else if (sort === 'price_desc') currentFilteredBooks.sort((a,b) => b.price - a.price);
+      else if (sort === 'name_asc') currentFilteredBooks.sort((a,b) => a.title.localeCompare(b.title));
+      else if (sort === 'name_desc') currentFilteredBooks.sort((a,b) => b.title.localeCompare(a.title));
+
+      // Pagination
+      const paginatedBooks = currentFilteredBooks.slice(0, currentPage * booksPerPage);
+      
+      let html = '';
+      paginatedBooks.forEach(book => {
+        html += `
+        <div class="book-card" style="transition: transform 0.1s ease-out, box-shadow 0.3s ease;">
+          <div class="book-cover">
+            <img src="${book.img}" class="book-cover-img" alt="${book.title}" loading="lazy">
+            <span class="book-tag">${book.tag}</span>
+          </div>
+          <div class="book-info">
+            <h3>${book.title}</h3>
+            <p>${book.desc}</p>
+            <div class="price-action">
+              <span class="price">₱${book.price.toLocaleString()}</span>
+              <div style="display: flex; gap: 8px;">
+                <button class="add-btn" data-title="${book.title.replace(/'/g, "\\'")}" data-price="${book.price}">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+                <button class="add-btn details-btn" data-id="${book.id}">
+                  Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      });
+      
+      if (currentFilteredBooks.length === 0) {
+        html = `
+          <div style="text-align:center; grid-column:1/-1; padding: 4rem; color: var(--text-muted);">
+            <i class="fa-solid fa-ghost" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+            <h3>No grimoires found in the archives.</h3>
+          </div>`;
+        if(loadMoreContainer) loadMoreContainer.style.display = 'none';
+      } else {
+        if (paginatedBooks.length < currentFilteredBooks.length) {
+          if(loadMoreContainer) loadMoreContainer.style.display = 'block';
+        } else {
+          if(loadMoreContainer) loadMoreContainer.style.display = 'none';
+        }
+      }
+      
+      booksContainer.innerHTML = html;
+      
+      // Re-attach listeners
+      applyTiltEffect();
+      document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const title = btn.getAttribute('data-title');
+          const price = parseInt(btn.getAttribute('data-price'));
+          cart.push({ title, price });
+          updateCartUI();
+          showToast(`Summoned ${title} to your cart`);
+        });
+      });
+
+      document.querySelectorAll('.details-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = parseInt(btn.getAttribute('data-id'));
+          const book = fantasyBooks.find(b => b.id === id);
+          if (book) {
+            openBookDetails(book);
+          }
+        });
+      });
+    }
+
+    if(loadMoreBtn) {
+      loadMoreBtn.addEventListener('click', () => {
+        currentPage++;
+        renderBooks(false);
+      });
+    }
+
+
+    function updateTrackerUI() {
+      const trackerDiv = document.getElementById('trackerOrdersList');
+      if (!orders.length) {
+        trackerDiv.innerHTML = `
+          <div style="text-align:center; padding:40px 20px; color: var(--text-muted);">
+            <i class="fa-solid fa-box-open" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+            <br>No active quests yet.
+          </div>`;
+        return;
+      }
+      let trackerHtml = '';
+      const steps = ['Forging', 'Packing', 'En Route', 'Arrived'];
+      
+      orders.forEach(order => {
+        trackerHtml += `
+        <div class="order-entry">
+          <div style="display:flex; justify-content:space-between; margin-bottom: 6px;">
+            <strong style="color:var(--gold-light);"><i class="fa-solid fa-user-astronaut"></i> ${order.buyer}</strong> 
+            <span style="font-size:0.75rem; color:var(--text-muted);">${order.date}</span>
+          </div>
+          <div style="font-size:0.85rem; color:var(--text-main); margin-bottom: 10px;">
+            ${order.items.length} item(s) · <strong style="color:var(--gold-primary);">₱${order.total.toLocaleString()}</strong>
+          </div>
+          <div class="status-badge-group">
+            ${steps.map((label, idx) => `
+              <div class="status-step ${idx <= order.stepIndex ? 'active' : ''}">${label}</div>
+            `).join('')}
+          </div>
+          ${order.stepIndex < 3 
+            ? `<button class="btn-outline" style="width:100%; margin-top:12px; padding:6px; font-size:0.8rem; border-color:var(--gold-dark);" data-orderid="${order.id}">
+                <i class="fa-solid fa-bolt"></i> Hasten Delivery
+               </button>` 
+            : `<div style="text-align:center; color:var(--gold-primary); font-size:0.85rem; margin-top:12px; font-weight:600;"><i class="fa-solid fa-check-double"></i> Quest Completed</div>`}
+        </div>
+      `;
+      });
+      trackerDiv.innerHTML = trackerHtml;
+      
+      document.querySelectorAll('[data-orderid]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const oid = parseInt(btn.getAttribute('data-orderid'));
+          const ord = orders.find(o => o.id === oid);
+          if (ord && ord.stepIndex < 3) { 
+            ord.stepIndex++; 
+            updateTrackerUI(); 
+            showToast(`Order status hastened!`); 
+          }
+        });
+      });
+    }
+
+    // Modal Logic
+    const modal = document.getElementById('purchaseModal');
+    const openBtn = document.getElementById('openPurchaseBtn');
+    
+    function showStep(step) {
+      document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active-form'));
+      document.querySelectorAll('.step-circle').forEach(el => el.classList.remove('active-step'));
+      
+      document.getElementById(`step${step}`).classList.add('active-form');
+      
+      for(let i=1; i<=step; i++) {
+        document.getElementById(`step${i}Indicator`).classList.add('active-step');
+      }
+    }
+
+    function refreshCartPreview() {
+      const cartContainer = document.getElementById('cartItemsList');
+      let total = cart.reduce((sum, i) => sum + i.price, 0);
+      
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<div style="text-align:center; padding: 20px;">Your cart echoes with emptiness.</div>';
+      } else {
+        let html = '';
+        cart.forEach(item => { 
+          html += `
+            <div class="cart-item-row">
+              <span><i class="fa-solid fa-book-journal-whills" style="color:var(--gold-primary); margin-right:8px;"></i> ${item.title}</span>
+              <span style="font-weight:600;">₱${item.price.toLocaleString()}</span>
+            </div>`; 
+        });
+        cartContainer.innerHTML = html;
+      }
+      document.getElementById('cartTotalAmount').innerHTML = `Total: ₱${total.toLocaleString()}`;
+    }
+
+    openBtn.addEventListener('click', () => {
+      if (cart.length === 0) { showToast("Your cart echoes with emptiness."); return; }
+      refreshCartPreview();
+      showStep(1);
+      modal.classList.add('show');
+    });
+
+    document.getElementById('nextStep1').addEventListener('click', () => { 
+      if (cart.length) showStep(2); 
+    });
+    
+    document.getElementById('nextStep2').addEventListener('click', () => {
+      const name = document.getElementById('buyerFullName').value.trim();
+      const email = document.getElementById('buyerEmail').value.trim();
+      const addr = document.getElementById('buyerAddress').value.trim();
+      
+      if (!name || !email || !addr) { 
+        showToast("Please provide all required credentials."); 
+        return; 
+      }
+      if (!email.includes('@')) { 
+        showToast("The magical email format is invalid."); 
+        return; 
+      }
+      
+      let total = cart.reduce((s, i) => s + i.price, 0);
+      const finalSummaryDiv = document.getElementById('finalOrderSummary');
+      let summaryHtml = '';
+      cart.forEach(i => { 
+        summaryHtml += `
+          <div class="cart-item-row" style="font-size:0.9rem; padding:6px 0;">
+            <span>${i.title}</span>
+            <span>₱${i.price.toLocaleString()}</span>
+          </div>`; 
+      });
+      finalSummaryDiv.innerHTML = summaryHtml;
+      document.getElementById('orderTotalFinal').innerHTML = `Final Tribute: ₱${total.toLocaleString()}`;
+      showStep(3);
+    });
+
+    document.getElementById('backStep2').addEventListener('click', () => showStep(1));
+    document.getElementById('backStep3').addEventListener('click', () => showStep(2));
+
+    document.getElementById('confirmOrderFinal').addEventListener('click', () => {
+      if (cart.length === 0) return;
+      
+      const buyer = document.getElementById('buyerFullName').value.trim();
+      const newOrder = {
+        id: Date.now(),
+        buyer: buyer,
+        email: document.getElementById('buyerEmail').value.trim(),
+        address: document.getElementById('buyerAddress').value.trim(),
+        phone: document.getElementById('buyerPhone').value.trim(),
+        payment: document.getElementById('paymentMethod').value,
+        items: [...cart],
+        total: cart.reduce((s, i) => s + i.price, 0),
+        stepIndex: 0,
+        date: new Date().toLocaleString([], {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'})
+      };
+      
+      orders.unshift(newOrder);
+      cart = [];
+      updateCartUI();
+      updateTrackerUI();
+      
+      showToast(`Order summoned successfully, ${buyer}!`);
+      modal.classList.remove('show');
+      
+      // Reset
+      document.querySelectorAll('input').forEach(input => input.value = '');
+    });
+
+    const detailsModal = document.getElementById('bookDetailsModal');
+    const closeDetailsBtn = document.getElementById('closeDetailsBtn');
+    const bookDetailsContent = document.getElementById('bookDetailsContent');
+
+    function openBookDetails(book) {
+      bookDetailsContent.innerHTML = `
+        <img src="${book.img}" style="width: 250px; height: 350px; object-fit: cover; border-radius: 16px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-glow);" alt="${book.title}">
+        <div style="flex: 1; min-width: 250px;">
+          <h3 style="font-size: 2rem; margin-bottom: 10px; color: var(--gold-light); font-family: 'Cinzel', serif;">${book.title}</h3>
+          <span class="book-tag" style="position: static; display: inline-block; margin-bottom: 15px; background: rgba(3, 5, 10, 0.8); backdrop-filter: blur(4px); padding: 6px 14px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; color: var(--gold-primary); border: 1px solid var(--border-subtle);">${book.tag}</span>
+          <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">${book.desc}</p>
+          <span style="font-size: 1.8rem; font-weight: 800; color: var(--gold-primary); display: block; margin-bottom: 20px; font-family: 'Cinzel', serif;">₱${book.price.toLocaleString()}</span>
+          <button class="btn-primary" id="detailsBuyBtn" style="width: 100%; justify-content: center;">
+            <i class="fa-solid fa-cart-plus"></i> Buy
+          </button>
+        </div>
+      `;
+      
+      detailsModal.classList.add('show');
+
+      document.getElementById('detailsBuyBtn').addEventListener('click', () => {
+        cart.push({ title: book.title, price: book.price });
+        updateCartUI();
+        showToast(`Summoned ${book.title} to your cart`);
+        detailsModal.classList.remove('show');
+      });
+    }
+
+    closeDetailsBtn.addEventListener('click', () => detailsModal.classList.remove('show'));
+    detailsModal.addEventListener('click', (e) => {
+      if (e.target === detailsModal) detailsModal.classList.remove('show');
+    });
+
+    // Close Modal
+    modal.addEventListener('click', (e) => { 
+      if (e.target === modal) modal.classList.remove('show'); 
+    });
+
+    // Tracker Panel Logic
+    const trackerFloat = document.getElementById('trackerFloatBtn');
+    const trackerPanel = document.getElementById('trackerPanel');
+    const closeTracker = document.getElementById('closeTrackerBtn');
+    
+    trackerFloat.addEventListener('click', () => { 
+      trackerPanel.classList.toggle('show'); 
+    });
+    
+    closeTracker.addEventListener('click', () => { 
+      trackerPanel.classList.remove('show'); 
+    });
+
+    // Listeners
+    searchInput.addEventListener('input', renderBooks);
+    genreFilter.addEventListener('change', renderBooks);
+    if(sortFilter) sortFilter.addEventListener('change', renderBooks);
+    
+    document.getElementById('exploreBtn').addEventListener('click', () => {
+      document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Init
+    renderBooks();
+    updateCartUI();
+    updateTrackerUI();
+  </script>
+</body>
+
+</html>
